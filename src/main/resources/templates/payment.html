@@ -1,0 +1,245 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}">
+<style>
+body {
+  font-family: Arial;
+  font-size: 17px;
+  padding: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.col-25 {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+}
+
+.col-50 {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+}
+
+.col-75 {
+  -ms-flex: 75%; /* IE10 */
+  flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+  padding: 0 16px;
+}
+
+.container {
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+input[type=number] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+input[type=email] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
+.btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+a {
+  color: #2196F3;
+}
+
+hr {
+  border: 1px solid lightgrey;
+}
+
+span.price {
+  float: right;
+  color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+}
+.head{
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<aside>
+ <link rel="stylesheet"   type="text/css" th:href="@{/css/cart.css}">
+      <div class="summary">
+        <div class="summary-total-items"><span class="total-items"></span>Total</div>
+        <div class="summary-subtotal">
+          <div class="subtotal-title">Subtotal</div>
+          <div class="subtotal-value final-value" id="basket-subtotal" th:text="${totalamt}">130.00</div>
+          <div class="summary-promo hide">
+            <div class="promo-title">Promotion</div>
+            <div class="promo-value final-value" id="basket-promo"></div>
+          </div>
+        </div>
+        <div class="summary-delivery">
+          <select name="delivery-collection" class="summary-delivery-selection" style="color: black;">
+              <option value="0" selected="selected">Online Payment</option>
+             <option value="collection">Online Payment</option>
+             
+             <option value="second-class">Pay Later</option>
+           
+          </select>
+        </div>
+        <div class="summary-total">
+          <div class="total-title">Total</div>
+          <div class="total-value final-value" id="basket-total" th:text="${discountamt}">130.00</div>
+        </div>
+        <div class="summary-checkout">
+       
+        
+          <a th:href="@{/cart}"><button type="submit" class="checkout-cta">Add more to Cart</button><a>
+        
+        </div>
+      </div>
+    </aside>
+
+<h2 class="head" style="font-family:  Georgia, 'Times New Roman', Times, serif"> Checkout</h2>
+
+<div class="row">
+  <div class="col-75">
+    <div class="container">
+      <form th:action="@{/orderPlaced}" >
+      
+        <div class="row">
+          <div class="col-50">
+            <h3>Shipping Address</h3>
+            <label for="fname" ><i class="fa fa-user"></i> Full Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="Enter Name"  minlength="5" maxlength="30" required>
+            <label for="email"><i class="fa fa-envelope" ></i> Email</label>
+            <input type="email"  id="email" name="email" placeholder="Enter Email" required>
+            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <input type="text" id="adr" name="address" placeholder="Enter Address" minlength="5" required>
+            <label for="city"><i class="fa fa-institution"></i> City</label>
+            <input type="text" id="city" name="city" placeholder="Enter City" minlength="3" required>
+
+            <div class="row">
+              <div class="col-50">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" placeholder="Enter State" minlength="3" required>
+              </div>
+              <div class="col-50">
+                <label for="zip">Zip</label>
+                <input type="number" id="zip" pattern="[0-9]{6}" name="zip" placeholder="Enter PinCode" minlength="6" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-50">
+            <h3>Payment</h3>
+            <label for="fname">Accepted Cards</label>
+            <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+            <label for="cname">Name on Card</label>
+            <input type="text" id="cname" name="cardname" placeholder="Enter Card Name" minlength="2" required>
+            <label for="ccnum">Credit card number</label>
+            <input type="number" id="ccnum" name="cardnumber" placeholder="xxxxxxxxxxxxxx" maxlength="16" required>
+            <label for="expmonth">Expiry Month</label>
+            <input type="number" id="expmonth" name="expmonth" placeholder="Enter Expiry month"  maxlength="2" required>
+            <div class="row">
+              <div class="col-50">
+                <label for="expyear">Expiry Year</label>
+                <input type="number" id="expyear" name="expyear" placeholder="Enter Expiry year"  maxlength="4" required>
+              </div>
+              <div class="col-50">
+                <label for="cvv">CVV</label>
+                <input   type="number"  id="cvv" name="cvv" placeholder="xxx"  maxlength="3" required>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <label type="hidden" value="Cancel Payment"  style="text-align: center;">
+        <a  th:href="@{/cart}">
+      
+        </a>
+        </label>
+      
+        
+        <button type="submit" class="btn">
+        Make Payment 
+        </button>
+       
+      </form>
+    </div>
+  </div>
+  <div class="col-25">
+    
+  </div>
+</div>
+ 
+
+</body>
+</html>

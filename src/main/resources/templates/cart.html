@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+
+#navbar {
+	 overflow: hidden;
+
+}
+
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+}
+
+
+
+</style>
+<meta charset="utf-8">
+<!-- <title>Responsive Navbar with Searchbox</title> -->
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}"/>
+<script th:src="@{https://code.jquery.com/jquery-3.4.1.js}"></script>
+</head>
+<body>
+<nav id="navbar">
+
+<ul>
+<li class="logoo" style="color: white;">Bookify</li>
+<form th:action="@{/books}" method="GET">
+<li class="search-iconn">
+<input type="search" placeholder="Search" name="keyword">
+<label class="iconn">
+<span class="fas fa-search"></span>
+</label>
+</li>
+</form>
+<li class="btnn"><span class="fas fa-bars"></span></li>
+<div class="itemss">
+<li><a th:href="@{/home}">Home</a></li>
+<li><a href="#">About</a></li>
+<li><a href="#">Services</a></li>
+<li><a th:href="@{/cart}">Cart</a></li>
+</div>
+
+</ul>
+</nav>
+
+<script>
+
+$('nav ul li.btnn span').click(function(){
+$('nav ul div.itemss').toggleClass("show");
+$('nav ul li.btnn span').toggleClass("show");
+});
+</script>
+</body>
+</html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet"   type="text/css" th:href="@{/css/cart.css}">
+    <!-- <script src="cart.js"></script> -->
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cart</title>
+</head>
+
+<body>
+  <main>
+    <div class="basket">
+      <div class="basket-module">
+        <label for="promo-code" style="color: black;">Enter a promotional code</label>
+        <input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field" style="color: black;">
+        <button class="promo-code-cta">Apply</button>
+      </div>
+      <div class="basket-labels" style="color: black;">
+        <ul>
+          <li class="item item-heading">Item</li>
+          <li class="price">Price</li>
+       <li class="subtotal">Discount</li>
+          <li class="subtotal">Subtotal</li>
+        </ul>
+      </div>
+      <Table th:each="book,ind :${book}">
+      <div class="basket-product">
+        <div class="item">
+          <div class="product-image">
+            <img th:src="@{/uploads/{file}(file=${book.fileName})}" alt="Placholder Image 2"  style="max-height: 200;"class="product-frame">
+          </div>
+          <div class="product-details">
+            <h1 style="color: black;"><strong th:text="${book.bName}" style="color: black;">Hello</strong> </h1>
+          
+          </div>
+        </div>
+        <div  style="color: black;" class="price" th:text="${book.bPrice}">26.00</div>
+        <!--<div class="quantity">
+          <input type="number" value="4" min="1" class="quantity-field">
+        </div>-->
+        <div style="color: black;" class="subtotal" th:text="${book.bDiscount}">104.00</div>
+        <div style="color: black;" class="subtotal" th:text="${book.bPrice - book.bDiscount}">104.00</div>
+        <div class="remove">
+          <a  class="button" th:href="@{/removeBook/{index}(index=${ind.index})}"> Remove</a  >
+        </div>
+      </div>
+      </Table>
+
+    </div>
+    <aside>
+      <div class="summary">
+        <div class="summary-total-items"><span class="total-items"></span> Items in your Bag</div>
+        <div class="summary-subtotal">
+          <div class="subtotal-title">Subtotal</div>
+          <div class="subtotal-value final-value" id="basket-subtotal" th:text="${totalamt}">130.00</div>
+           <div class="subtotal-title">Discount</div>
+          <div class="subtotal-value final-value" id="basket-subtotal" th:text="${totaldiscount}">130.00</div>
+          <div class="summary-promo hide">
+            <div class="promo-title">Promotion</div>
+            <div class="promo-value final-value" id="basket-promo"></div>
+          </div>
+        </div>
+        <div class="summary-delivery">
+          <select name="delivery-collection" class="summary-delivery-selection" style="color: black;">
+              <option value="0" selected="selected">Select Payment Method</option>
+             <option value="collection">Online Payment</option>
+             <option value="first-class">Cash On Delivery</option>
+             <option value="second-class">Pay Later</option>
+           
+          </select>
+        </div>
+        <div class="summary-total">
+          <div class="total-title">Total</div>
+          <div class="total-value final-value" id="basket-total" th:text="${discountamt}">130.00</div>
+        </div>
+        <div class="summary-checkout">
+        <form th:action="@{/toPayment}"
+        
+          <a ><button type="submit" class="checkout-cta">Go to Secure Checkout</button><a>
+          </form>
+        </div>
+      </div>
+    </aside>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+
+#navbar {
+	 overflow: hidden;
+
+
+}
+
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+}
+
+
+
+</style>
+<meta charset="utf-8">
+<!-- <title>Responsive Navbar with Searchbox</title> -->
+<link rel="stylesheet" th:href="@{/css/navbar.css}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}"/>
+<script th:src="@{https://code.jquery.com/jquery-3.4.1.js}"></script>
+</head>
+<body>
+<nav id="navbar">
+
+<ul>
+<li class="logoo">Bookify</li>
+<form th:action="@{/home}" method="GET">
+<li class="search-iconn">
+<input type="search" placeholder="Search" name="keyword">
+<label class="iconn">
+<span class="fas fa-search"></span>
+<button type="submit" value="go"></button>
+</label>
+</li>
+</form>
+<li class="btnn"><span class="fas fa-bars"></span></li>
+<div class="itemss">
+<li><a href="#" style="color: white;">Home</a></li>
+
+<li><a href="#">About</a></li>
+<li><a th:href="@{/logout}">Logout</a></li>
+<li><a th:href="@{/cart}">Cart</a></li>
+
+<div sec:authorize="hasAnyAuthority('admin','user')">
+
+<li><a th:href="@{/myAccount}" sec:authentication="principal.fullName"></a></li>
+<div>
+
+</div>
+
+</ul>
+</nav>
+
+<script>
+
+$('nav ul li.btnn span').click(function(){
+$('nav ul div.itemss').toggleClass("show");
+$('nav ul li.btnn span').toggleClass("show");
+});
+</script>
+</body>
+</html>
+<!doctype html>
+<html class="no-js" lang="en"	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    
+    <meta charset="utf-8">
+    
+    <!--====== Title ======-->
+    <title>Bookify-Index</title>
+    
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        
+    <!--====== Bootstrap CSS ======-->
+    <link rel="stylesheet" href="bootstrap.min.css" th:href="@{/components/assets/css/bootstrap.min.css}">
+    
+    <!--====== Default CSS ======-->
+    <link rel="stylesheet" href="default.css" th:href="@{/components/assets/css/default.css}">
+    
+    <!--====== Style CSS ======-->
+    <link rel="stylesheet" href="style.css" th:href="@{/components/assets/css/style.css}">
+    
+    
+    
+</head>
+
+<body>
+
+	
+    <!--====== FEATRES TWO PART START ======-->
+  
+
+    <section id="services" class="features-area">
+        <div class="container">
+             <!-- row -->
+            <div class="row justify-content-center">
+                <table th:each="book: ${listBooks}">
+                <div class="col-lg-4 col-md-7 col-sm-9">
+                    <div class="single-features mt-10">
+                        <div class="features-title-icon d-flex ">
+                            <h5 class="features-title" style="text-align:center;"><a href=""   th:text="${book.bName}">Hllo</a></h5>
+                          
+                        </div>
+                        <div class="features-content" style="align-content: center;">
+                            <img th:src="@{/uploads/{file}(file=${book.fileName})}" th:href="@{/cart}" style=" max-height:330px ; max-width: 290px;" class="card-img-top m-2" alt="...">
+                           <p   th:text="${book.bDesc}">Hello</p>
+                            <br>
+                            
+                            <button class="main-btn" ><a th:href="@{toCart/{id}(id=${book.bId})}"> Add to Cart</a></button>
+                            <button class="main-btn" 	th:text="${'Rs.'+book.bPrice}"> Sample<span  class="text-secondary discount-label"> this </span>  </button>
+
+                    
+                        </div>
+                    </div> <!-- single features -->
+                </div>
+                
+            </table>
+                
+                
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+   
+    <!--====== FEATRES TWO PART ENDS ======-->
+     
+
+
+
+
+    <!--====== Jquery js ======-->
+    <script th:src="@{/components/assets/js/vendor/jquery-1.12.4.min.js}" ></script>
+    <script th:src="@{/components/assets/js/vendor/modernizr-3.7.1.min.js}"></script>
+    
+    <!--====== Bootstrap js ======-->
+    <script th:src="@{/components/assets/js/popper.min.js}"></script>
+    <script th:src="@{/components/assets/js/bootstrap.min.js}"></script>
+    
+    <!--====== Slick js ======-->
+    <script th:src="@{/components/assets/js/slick.min.js}"></script>
+    
+    <!--====== Magnific Popup js ======-->
+    <script th:src="@{/components/assets/js/jquery.magnific-popup.min.js}"></script>
+    
+    <!--====== Ajax Contact js ======-->
+    <script th:src="@{/components/assets/js/ajax-contact.js}"></script>
+    
+    <!--====== Isotope js ======-->
+    <script th:src="@{/components/assets/js/imagesloaded.pkgd.min.js}"></script>
+    <script th:src="@{/components/assets/js/isotope.pkgd.min.js}"></script>
+    
+    <!--====== Scrolling Nav js ======-->
+    <script th:src="@{/components/assets/js/jquery.easing.min.js}"	></script>
+    <script th:src="@{/components/assets/js/scrolling-nav.js}"></script>
+    
+    <!--====== Main js ======-->
+    <script th:href="@{/components/assets/js/main.js}"></script>
+    
+    
+</body>
+
+</html>

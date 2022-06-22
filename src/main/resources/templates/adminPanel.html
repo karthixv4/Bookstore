@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="admin.css" th:href="@{/css/admin.css}">
+<title>Bookify-Admin Panel</title>
+<!-- Boxicons CDN Link -->
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'
+	rel='stylesheet'>
+<script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	
+	<div class="sidebar">
+		<div class="logo-details">
+			<span class="iconify" data-icon="arcticons:letter-lowercase-b"
+				 data-width="30"></span> <span
+				class="logo_name"><a th:href="@{/home}" style="color: white;text-decoration: none;">Bookify</a></span>
+		</div>
+
+		<ul class="nav-links">
+			<li><a th:href="@{/home}" class="active"> <span class="iconify"
+					data-icon="ant-design:user-outlined" style="color: white;"
+					data-width="30"></span> <span class="links_name"  >Go to home</span>
+			</a></li>
+			<li><a th:href="@{/books}"> <span class="iconify"
+					data-icon="noto:books" data-width="30"></span> <span
+					class="links_name">Show Books</span>
+			</a></li>
+			<li><a th:href="@{/addGenre}"> <span class="iconify"
+					data-icon="bxs:add-to-queue" style="color: white;" data-width="30"></span>
+					<span class="links_name">Add Genre</span>
+			</a></li>
+
+			<li><a href="#"> <span class="iconify"
+					data-icon="ci:settings-filled" style="color: white;"
+					data-width="30"></span> <span class="links_name">Setting</span>
+			</a></li>
+			<li class="log_out"><a th:href="@{/logout}"> <span class="iconify"
+					data-icon="ri:logout-circle-fill" data-width="30"></span> <span
+					class="links_name">Log out</span>
+			</a></li>
+		</ul>
+	</div>
+	<section class="home-section">
+		<nav>
+			<div class="sidebar-button">
+				<i class='bx bx-menu sidebarBtn'></i> <span class="dashboard">Admin
+					Panel</span>
+			</div>
+
+			<div class="profile-details">
+				<!--<img src="images/profile.jpg" alt="">-->
+				<span class="admin_name" >Welcome <p  sec:authentication="principal.fullName"></p></span>
+
+			</div>
+		</nav>
+		<!--first box-->
+		<div class="home-content">
+			<div class="overview-boxes">
+				<div class="box">
+					<div class="right-side">
+						<div class="box-topic">
+						 
+						</div>
+						<div class="number">
+						<a th:href="@{/users}" style="color: black;font-size: 25px; text-decoration: none; padding-right: 40px; padding-left: 20px;">
+							Users
+							</a>
+						</div>
+						<div class="indicator"></div>
+					</div>
+					<span class="iconify" data-icon="fa-solid:users" style="color: navy;" data-width="50"></span>
+				</div>
+				<!--second col-->
+				<div class="box">
+					<div class="right-side">
+						<div class="box-topic">
+						<a th:href="@{/books}" style="font-size: 25px;color: black; text-decoration: none;padding-left: 40px; padding-right: 40px;">
+						Books
+						</a>
+						</div>
+					
+						<div class="indicator"></div>
+					</div>
+					<span class="iconify" data-icon="emojione-v1:books" style="color: navy;" data-width="50"></span>
+				</div>
+				<!--third col-->
+				<div class="box">
+					<div class="right-side">
+						<div class="box-topic">
+						
+						
+						</div>
+						<div class="number">
+						<a th:href="@{/genres}" style="font-size: 25px;color: black; text-decoration: none; padding-right: 20px;">
+							Genres
+							</a>
+						</div>
+						<div class="indicator"></div>
+					</div>
+					<span class="iconify" data-icon="twemoji:books" style="color: navy;" data-width="50"></span>
+				</div>
+				<div class="box" data-toggle="modal" data-target="#add-genre-modal">
+					<div class="right-side">
+						<div class="box-topic ">
+						<a th:href="@{/addGenre}" style="font-size: 25px;color: black; text-decoration: none;">
+						Add Genres
+						</a>
+			</div>
+			
+
+						<div class="indicator"></div>
+					</div>
+					<span class="iconify" data-icon="ant-design:appstore-add-outlined" style="color: navy;" data-width="50"></span>
+				</div>
+				<div class="box" data-toggle="modal" data-target="#add-book-modal">
+					<div class="last">
+						<div class="box-topic">
+						<a th:href="@{/addBook}" style="font-size: 25px;color: black; text-decoration: none; padding-right: 20px;">
+						Add book
+						</a>
+						</div>
+
+						<div class="indicator"></div>
+					</div>
+					<span class="iconify" data-icon="fluent:book-add-24-regular" style="color: navy;" data-width="50"></span>
+				</div>
+				<div class="box" data-toggle="modal" data-target="#add-book-modal">
+					<div class="last">
+						<div class="box-topic">
+						<a th:href="@{/books}" style="font-size: 25px;color: black; text-decoration: none; padding-right: 20px;">
+						View Book
+						</a>
+						</div>
+
+						<div class="indicator"></div>
+					</div>
+					<span class="iconify" data-icon="emojione-v1:open-book" style="color: navy;" data-width="50"></span>
+				</div>
+				
+				<!--<div class="box" data-toggle="modal" data-target="#view-book-modal">
+					<div class="last">
+						<div class="box-topic">
+							<a th:href="@{/books}" style="font-size: 25px;">View Book</a>
+						</div>
+
+						<div class="indicator"></div>
+						<span class="iconify" data-icon="emojione-v1:open-book" style="color: navy;" data-width="50"></span>
+					</div>
+
+				</div>-->
+			</div>
+
+
+
+
+		</div>
+		</div>
+		</div>
+	</section>
+
+
+	<script>
+		let sidebar = document.querySelector(".sidebar");
+		let sidebarBtn = document.querySelector(".sidebarBtn");
+		sidebarBtn.onclick = function() {
+			sidebar.classList.toggle("active");
+			if (sidebar.classList.contains("active")) {
+				sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+			} else
+				sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+		}
+	</script>
+	<!-- add genre modal -->
+
+
+	<!-- Modal -->
+
+</body>
+
+</html>

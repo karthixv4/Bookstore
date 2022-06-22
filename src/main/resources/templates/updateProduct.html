@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sign Up - CodeJava</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <h1>Update Product</h1>
+    </div>
+    <form th:action="@{/update/{id}(id=${book.bId})}" th:object="${book}"
+          method="post" style="max-width: 600px; margin: 0 auto;">
+        <div class="m-3">
+       
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Name </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{bName}" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Description </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{bDesc}" class="form-control"
+                           required minlength="10"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Price </label>
+                <div class="col-8">
+                    <input type="number" th:field="*{bPrice}" class="form-control"
+                           required minlength="2" maxlength="20"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Discount </label>
+                <div class="col-8">
+                    <input type="number" th:field="*{bDiscount}" class="form-control"
+                           required minlength="1" maxlength="20" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Quantity </label>
+                <div class="col-8">
+                    <input type="number" th:field="*{bQuantity}" class="form-control"
+                           required minlength="0" maxlength="20" />
+                </div>
+            </div>
+             <div class="form-group row">
+                <label class="col-4 col-form-label">Image </label>
+                <div class="col-8">
+                    <input type="file" name="file"  id="Image" class="form-control"
+                             />
+                </div>
+               
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">ADD</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

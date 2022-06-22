@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" href="profile.css" th:href="@{/css/profile.css}">
+<aside class="profile-card">
+    <header>
+      <!-- hereâs the avatar -->
+      
+  <h1>Your Account:</h1>
+  <br>
+      <!-- the username -->
+     <h1 sec:authentication="principal.fullName">Username
+              
+            </h1 >
+            
+            
+  
+      <!-- and role or location -->
+      <h2 sec:authentication="name">
+     
+            </h2>
+            <h2 sec:authentication="principal.address">
+     
+            </h2>
+            <h2 sec:authentication="principal.phone">
+     
+            </h2>
+  
+    </header>
+  
+    <!-- bit of a bio; who are you? -->
+    <div class="profile-bio">
+  
+      <p style="color: black;" > 
+     Welcome to Bookify! Happy Surfing
+      </p >
+  
+    </div>
+  
+    <!-- some social links to show off -->
+    <ul class="profile-social-links" style="color: black;">
+      <li>
+        <a target="_blank" th:href="@{https://www.facebook.com/creativedonut}" >
+          <i class="fa fa-facebook" style="color: black;"></i>
+        </a>
+      </li>
+      <li>
+        <a target="_blank" th:href="@{https://twitter.com/dropyourbass}">
+          <i class="fa fa-twitter" style="color: black;"></i>
+        </a>
+      </li>
+      <li>
+        <a target="_blank" th:href="@{https://github.com/vipulsaxena}">
+          <i class="fa fa-github" style="color: black;"></i>
+        </a>
+      </li>
+      <li>
+        <a target="_blank" href="#">
+         
+          <i class="fa fa-instagram" style="color: black;"></i>
+        </a>
+      </li>
+</ul>
+<a th:href="@{/home}" class="button">Explore Books</a>
+<div sec:authorize="hasAnyAuthority('admin')">
+<a th:href="@{/adminPanel}" class="button">Take me to Admin Panel</a>
+</div>
+  </aside>
+  <script th:src="@{https://kit.fontawesome.com/bd6e7ec3e8.js}" crossorigin="anonymous"></script>
+</html>
